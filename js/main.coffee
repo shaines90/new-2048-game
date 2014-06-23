@@ -56,3 +56,14 @@ $ ->
   generateTile(@board)
   generateTile(@board)
   ppArray(@board)
+
+  getRow = (r, board) ->
+    board[r]
+  console.log getRow(2, @board)
+
+  getColumn = (c, board) ->
+    b = board
+    [b[0][c], b[1][c], b[2][c], b[3][c]]
+  console.log getColumn(3, @board)
+
+
