@@ -57,13 +57,40 @@ $ ->
   generateTile(@board)
   ppArray(@board)
 
-  getRow = (r, board) ->
-    board[r]
-  console.log getRow(2, @board)
+  getRow = (row, board) ->
+    board[row]
+  # console.log getRow(2, @board)
 
-  getColumn = (c, board) ->
+  getColumn = (columnNum, board) ->
     b = board
+    c = columnNum
     [b[0][c], b[1][c], b[2][c], b[3][c]]
-  console.log getColumn(3, @board)
+  # console.log getColumn(3, @board)
+
+  collapseCells = (cells, direction) ->
+    cells = cells.filter (x) -> x != 0
+    padding = 4 - cells.length
+
+    for i in [1..padding]
+      switch direction
+        when 'right' then cells.unshift 0
+        when 'left' then cells.push 0
+        when 'down' then cells.unshift 0
+        when 'up' then cells.push 0
+    cells
+
+  mergeCells = (cells, direction) ->
+
+
+
+
+
+
+  # checkWin = (board) ->
+  #   for row in board
+  #     for cell in row
+  #       if cell >=2048
+
+
 
 
