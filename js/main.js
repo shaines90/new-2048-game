@@ -103,7 +103,34 @@
       }
       return cells;
     };
-    return mergeCells = function(cells, direction) {};
+    mergeCells = function(cells, direction) {
+      var i, value, _i, _j;
+      value = cells;
+      switch (direction) {
+        case 'left':
+        case 'down':
+          for (i = _i = 0; _i <= 3; i = ++_i) {
+            if (value[i] === value[i + 1]) {
+              value[i] = value[i] * 2;
+              value[i + 1] = 0;
+            }
+          }
+          break;
+        case 'right':
+        case 'up':
+          for (i = _j = 3; _j >= 0; i = --_j) {
+            if (value[i] === value[i + 1]) {
+              value[i] = value[i] * 2;
+              value[i + 1] = 0;
+            }
+          }
+      }
+      return value;
+    };
+    console.log("mergeCells: " + mergeCells([2, 2, 2, 2], 'left'));
+    console.log("mergeCells: " + mergeCells([2, 2, 2, 2], 'right'));
+    console.log("mergeCells: " + mergeCells([2, 4, 2, 2], 'left'));
+    return console.log("mergeCells: " + mergeCells([2, 2, 2, 2], 'up'));
   });
 
 }).call(this);
