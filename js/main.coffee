@@ -71,7 +71,7 @@ $ ->
     cells = cells.filter (x) -> x != 0
     padding = 4 - cells.length
 
-    for i in [1..padding]
+    for i in [0...padding]
       switch direction
         when 'right' then cells.unshift 0
         when 'left' then cells.push 0
@@ -98,9 +98,23 @@ $ ->
   console.log "mergeCells: " + mergeCells([2,2,2,2], 'left')
   console.log "mergeCells: " + mergeCells([2,2,2,2], 'right')
   console.log "mergeCells: " + mergeCells([2,4,2,2], 'left')
-  console.log "mergeCells: " + mergeCells([2,2,2,2], 'up')
+  console.log "mergeCells: " + mergeCells([4,2,0,2], 'up')
+  console.log "mergeCells: " + mergeCells([4,0,0,4], 'left')
 
 
+
+# animate cells
+
+  # $( "#go" ).click(function() {
+  #   $( ".animateCell:first" ).animate({
+  #     left: 100
+  #   }, {
+  #     duration: 1000,
+  #     step: function( now, fx ){
+  #       $( ".animateCell:gt(0)" ).css( direction, now );
+  #     }
+  #   });
+  # });
 
 
 

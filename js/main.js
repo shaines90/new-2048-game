@@ -86,7 +86,7 @@
         return x !== 0;
       });
       padding = 4 - cells.length;
-      for (i = _i = 1; 1 <= padding ? _i <= padding : _i >= padding; i = 1 <= padding ? ++_i : --_i) {
+      for (i = _i = 0; 0 <= padding ? _i < padding : _i > padding; i = 0 <= padding ? ++_i : --_i) {
         switch (direction) {
           case 'right':
             cells.unshift(0);
@@ -130,7 +130,8 @@
     console.log("mergeCells: " + mergeCells([2, 2, 2, 2], 'left'));
     console.log("mergeCells: " + mergeCells([2, 2, 2, 2], 'right'));
     console.log("mergeCells: " + mergeCells([2, 4, 2, 2], 'left'));
-    return console.log("mergeCells: " + mergeCells([2, 2, 2, 2], 'up'));
+    console.log("mergeCells: " + mergeCells([4, 2, 0, 2], 'up'));
+    return console.log("mergeCells: " + mergeCells([4, 0, 0, 4], 'left'));
   });
 
 }).call(this);
