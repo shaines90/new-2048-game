@@ -36,26 +36,26 @@ $ ->
       else
         generateTile(board)
 
-  $('body').keydown (e) ->
-    key = e.which
-    keys = [37..40]
+  # $('body').keydown (e) ->
+  #   key = e.which
+  #   keys = [37..40]
 
-    if $.inArray(key, keys) > -1
-      e.preventDefault()
+  #   if $.inArray(key, keys) > -1
+  #     e.preventDefault()
 
-    switch key
-      when 37
-        console.log 'left'
-      when 38
-        console.log 'up'
-      when 39
-        console.log 'right'
-      when 40
-        console.log 'down'
+  #   switch key
+  #     when 37
+  #       console.log 'left'
+  #     when 38
+  #       console.log 'up'
+  #     when 39
+  #       console.log 'right'
+  #     when 40
+  #       console.log 'down'
 
-  generateTile(@board)
-  generateTile(@board)
-  ppArray(@board)
+  # # generateTile(@board)
+  # # generateTile(@board)
+  # # ppArray(@board)
 
   getRow = (row, board) ->
     board[row]
@@ -68,19 +68,14 @@ $ ->
   # console.log getColumn(3, @board)
 
   setRow = (newArray, rowNumber, board) ->
-    newArray = row
+    row = newArray
     board[rowNumber] = row
 
   setColumn = (newArray, columnNumber, board) ->
     c = columnNumber
     b = board
     [b[0][c], b[1][c], b[2][c], b[3][c]] = newArray
-  setColumn([2,2,2,2], 3, @board)
-
-  ppArray @board
-
-
-
+  # setColumn([2,2,2,2], 3, @board)
 
   collapseCells = (cells, direction) ->
     cells = cells.filter (x) -> x != 0
@@ -124,11 +119,72 @@ $ ->
                 break
     value
 
-  console.log "mergeCells: " + mergeCells([2,2,2,2], 'left')
-  console.log "mergeCells: " + mergeCells([2,2,2,2], 'right')
-  console.log "mergeCells: " + mergeCells([2,4,2,2], 'left')
-  console.log "mergeCells: " + mergeCells([4,2,0,2], 'up')
-  console.log "mergeCells: " + mergeCells([4,0,0,4], 'left')
+  showBoard = (board) ->
+
+    $(".r#{0}.c#{0} > .board").html("<p>(board{row}{column})</p>")
+  showBoard(@board)
+  ppArray showBoard
+
+  move = (board, direction) ->
+    switch direction
+      when 'left'
+        for i in [0..3]
+          row = getRow(i, board)
+          row = mergeCells(row, 'left')
+          row = collapseCells(row, 'left')
+          setRow(row, i, board)
+      when 'up'
+        for i in [0..3]
+          row = getColumn(i, board)
+          row = mergeCells(row, 'up')
+          row = collapseCells(row, 'up')
+          setColumn(row, i, board)
+      when 'right'
+        for i in [3..0]
+          row = getRow(i, board)
+          row = mergeCells(row, 'right')
+          row = collapseCells(row, 'right')
+          setRow(row, i, board)
+      when 'down'
+        for i in [3..0]
+          row = getColumn(i, board)
+          row = mergeCells(row, 'down')
+          row = collapseCells(row, 'down')
+          setColumn(row, i, board)
+
+    generateTile(board)
+
+  $('body').keydown (e) =>
+    key = e.which
+    keys = [37..40]
+
+    if $.inArray(key, keys) > -1
+      e.preventDefault()
+
+    switch key
+      when 37
+        console.log 'left'
+        move(@board, 'left')
+        ppArray(@board)
+      when 38
+        console.log 'up'
+        move(@board, 'up')
+        ppArray(@board)
+      when 39
+        console.log 'right'
+        move(@board, 'right')
+        ppArray(@board)
+      when 40
+        console.log 'down'
+        move(@board, 'down')
+        ppArray(@board)
+
+  generateTile(@board)
+  generateTile(@board)
+  ppArray(@board)
+
+
+
 
 
 
@@ -144,9 +200,6 @@ $ ->
   #     }
   #   });
   # });
-
-
-
 
   # checkWin = (board) ->
   #   for row in board
