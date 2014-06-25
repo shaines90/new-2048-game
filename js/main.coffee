@@ -83,16 +83,30 @@ $ ->
     value = cells
 
     switch direction
-      when 'left', 'down'
-        for i in [0..3]
-          if value[i] == value[i+1]
-            value[i] = value[i]*2
-            value[i+1] = 0
-      when 'right', 'up'
-        for i in [3..0]
-          if value[i] == value[i+1]
-            value[i] = value[i]*2
-            value[i+1] = 0
+      when 'left', 'up'
+        for i in [0...3]
+          for j in [i+1..3]
+            if value[i] == 0
+              break
+            else if value[i] == value[j]
+              value[i] = value[i]*2
+              value[j] = 0
+              break
+            else
+              if value[j] != 0
+                break
+      when 'right', 'down'
+        for i in [3...0]
+          for j in [i-1..0]
+            if value[i] == 0
+              break
+            else if value[i] == value[j]
+              value[i] = value[i]*2
+              value[j] = 0
+              break
+            else
+              if value[j] != 0
+                break
     value
 
   console.log "mergeCells: " + mergeCells([2,2,2,2], 'left')

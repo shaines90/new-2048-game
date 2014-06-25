@@ -104,24 +104,42 @@
       return cells;
     };
     mergeCells = function(cells, direction) {
-      var i, value, _i, _j;
+      var i, j, value, _i, _j, _k, _l, _ref, _ref1;
       value = cells;
       switch (direction) {
         case 'left':
-        case 'down':
-          for (i = _i = 0; _i <= 3; i = ++_i) {
-            if (value[i] === value[i + 1]) {
-              value[i] = value[i] * 2;
-              value[i + 1] = 0;
+        case 'up':
+          for (i = _i = 0; _i < 3; i = ++_i) {
+            for (j = _j = _ref = i + 1; _ref <= 3 ? _j <= 3 : _j >= 3; j = _ref <= 3 ? ++_j : --_j) {
+              if (value[i] === 0) {
+                break;
+              } else if (value[i] === value[j]) {
+                value[i] = value[i] * 2;
+                value[j] = 0;
+                break;
+              } else {
+                if (value[j] !== 0) {
+                  break;
+                }
+              }
             }
           }
           break;
         case 'right':
-        case 'up':
-          for (i = _j = 3; _j >= 0; i = --_j) {
-            if (value[i] === value[i + 1]) {
-              value[i] = value[i] * 2;
-              value[i + 1] = 0;
+        case 'down':
+          for (i = _k = 3; _k > 0; i = --_k) {
+            for (j = _l = _ref1 = i - 1; _ref1 <= 0 ? _l <= 0 : _l >= 0; j = _ref1 <= 0 ? ++_l : --_l) {
+              if (value[i] === 0) {
+                break;
+              } else if (value[i] === value[j]) {
+                value[i] = value[i] * 2;
+                value[j] = 0;
+                break;
+              } else {
+                if (value[j] !== 0) {
+                  break;
+                }
+              }
             }
           }
       }
