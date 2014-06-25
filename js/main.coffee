@@ -67,6 +67,21 @@ $ ->
     [b[0][c], b[1][c], b[2][c], b[3][c]]
   # console.log getColumn(3, @board)
 
+  setRow = (newArray, rowNumber, board) ->
+    newArray = row
+    board[rowNumber] = row
+
+  setColumn = (newArray, columnNumber, board) ->
+    c = columnNumber
+    b = board
+    [b[0][c], b[1][c], b[2][c], b[3][c]] = newArray
+  setColumn([2,2,2,2], 3, @board)
+
+  ppArray @board
+
+
+
+
   collapseCells = (cells, direction) ->
     cells = cells.filter (x) -> x != 0
     padding = 4 - cells.length
