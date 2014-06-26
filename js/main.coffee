@@ -4,9 +4,8 @@ $ ->
     for row in array
       console.log row
 
-  @board = [0..3].map (x) -> [0..3].map (y) -> 0
-
-  newBoard = @board
+  buildBoard = ->
+    [0..3].map (x) -> [0..3].map (y) -> 0
 
   randomIndex = (x) ->
     Math.floor(Math.random() * 4)
@@ -57,8 +56,9 @@ $ ->
       else
         generateTile(board)
 
-  getRow = (row, board) ->
-    board[row]
+  getRow = (rowNumber, board) ->
+    [r, b] = [rowNumber, board]
+    [b[r][0], b[r][1], b[r][2], b[r][3]]
 
   getColumn = (columnNum, board) ->
     b = board
@@ -116,6 +116,17 @@ $ ->
                 break
     value
 
+  gameLost = (board) ->
+    boardIsFull(board) && noValidMoves(board)
+
+  gameWon = (board) ->
+    for row in board
+      for cell in row
+        if cell >= 2048
+          return true
+        else
+          false
+
   showBoard = (board) ->
     for i in [0..3]
       for j in [0..3]
@@ -142,43 +153,35 @@ $ ->
       else '#80FF00'
 
   move = (board, direction) ->
+
+    newBoard = buildBoard()
+
     switch direction
       when 'left'
         for i in [0..3]
           row = getRow(i, board)
           row = mergeCells(row, 'left')
           row = collapseCells(row, 'left')
-          setRow(row, i, board)
+          setRow(row, i, newBoard)
       when 'up'
         for i in [0..3]
           row = getColumn(i, board)
           row = mergeCells(row, 'up')
           row = collapseCells(row, 'up')
-          setColumn(row, i, board)
+          setColumn(row, i, newBoard)
       when 'right'
         for i in [3..0]
           row = getRow(i, board)
           row = mergeCells(row, 'right')
           row = collapseCells(row, 'right')
-          setRow(row, i, board)
+          setRow(row, i, newBoard)
       when 'down'
         for i in [3..0]
           row = getColumn(i, board)
           row = mergeCells(row, 'down')
           row = collapseCells(row, 'down')
-          setColumn(row, i, board)
-
-    generateTile(board)
-    showBoard(board)
-
-  checkWin = (board) ->
-    for row in board
-      for cell in row
-        if cell >= 2048
-          return true
-        else
-          false
-  checkWin(@board)
+          setColumn(row, i, newBoard)
+    newBoard
 
   $('body').keydown (e) =>
     key = e.which
@@ -187,28 +190,29 @@ $ ->
     if $.inArray(key, keys) > -1
       e.preventDefault()
 
-    switch key
-      when 37
-        console.log 'left'
-        move(@board, 'left')
-        ppArray(@board)
-      when 38
-        console.log 'up'
-        move(@board, 'up')
-        ppArray(@board)
-      when 39
-        console.log 'right'
-        move(@board, 'right')
-        ppArray(@board)
-      when 40
-        console.log 'down'
-        move(@board, 'down')
-        ppArray(@board)
+    direction = switch key
+      when 37 then 'left'
+      when 38 then 'up'
+      when 39 then 'right'
+      when 40 then 'down'
 
+    ppArray @board
+    newBoard = move(@board, direction)
+
+    if moveIsValid(newBoard, @board)
+      @board = newBoard
+      generateTile(@board)
+      showBoard(@board)
+      console.log gameLost(@board)
+      if gameLost(@board)
+        alert "Game Over!"
+      else if gameWon(@board)
+        console.log "Game Won!"
+
+  @board = buildBoard()
   generateTile(@board)
   generateTile(@board)
   showBoard(@board)
-  ppArray(@board)
 
 
 
