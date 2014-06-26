@@ -62,7 +62,7 @@ h1 {
 p {
   font-family: 'avenir';
   font-size: 28px;
-  padding-top: 5px;
-  color: green;
-  font-family: 'Inconsolata';
+/*  padding-top: 2px;*/
+  color: rgb(50,50,50);
+/*  font-family: 'Inconsolata';*/
 }

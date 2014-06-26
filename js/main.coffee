@@ -1,11 +1,12 @@
 $ ->
 
-  # creating rows and columns
   ppArray = (array) ->
     for row in array
       console.log row
 
   @board = [0..3].map (x) -> [0..3].map (y) -> 0
+
+  newBoard = @board
 
   randomIndex = (x) ->
     Math.floor(Math.random() * 4)
@@ -17,6 +18,29 @@ $ ->
     values = [2,2,2,2,2,4]
     val = values[randomIndex(values.length)]
 
+  arrayEqual = (a, b) ->
+    for valueInA, index in a
+      if valueInA != b[index]
+        return false
+    true
+
+  boardEqual = (a, b) ->
+    for array, i in a
+      if !arrayEqual(array, b[i])
+        return false
+    true
+
+  moveIsValid = (a, b) ->
+    not boardEqual(a,b)
+
+  noValidMoves = (board) ->
+    directions = ['up', 'down', 'left', 'right']
+
+    for direction in directions
+      newBoard = move board, direction
+      return false if moveIsValid(newBoard, board)
+    true
+
   boardIsFull = (board) ->
     for x in [0..3]
       for y in [0..3]
@@ -26,46 +50,20 @@ $ ->
 
   generateTile = (board) ->
     unless boardIsFull(board)
-      # get random value for tile
       val = randomValue()
-      # get random position
       [x, y] = getRandomCellIndecies()
-      # only if the cell = 0
       if board[x][y] == 0
         board[x][y] = val
       else
         generateTile(board)
 
-  # $('body').keydown (e) ->
-  #   key = e.which
-  #   keys = [37..40]
-
-  #   if $.inArray(key, keys) > -1
-  #     e.preventDefault()
-
-  #   switch key
-  #     when 37
-  #       console.log 'left'
-  #     when 38
-  #       console.log 'up'
-  #     when 39
-  #       console.log 'right'
-  #     when 40
-  #       console.log 'down'
-
-  # # generateTile(@board)
-  # # generateTile(@board)
-  # # ppArray(@board)
-
   getRow = (row, board) ->
     board[row]
-  # console.log getRow(2, @board)
 
   getColumn = (columnNum, board) ->
     b = board
     c = columnNum
     [b[0][c], b[1][c], b[2][c], b[3][c]]
-  # console.log getColumn(3, @board)
 
   setRow = (newArray, rowNumber, board) ->
     row = newArray
@@ -75,7 +73,6 @@ $ ->
     c = columnNumber
     b = board
     [b[0][c], b[1][c], b[2][c], b[3][c]] = newArray
-  # setColumn([2,2,2,2], 3, @board)
 
   collapseCells = (cells, direction) ->
     cells = cells.filter (x) -> x != 0
@@ -122,10 +119,27 @@ $ ->
   showBoard = (board) ->
     for i in [0..3]
       for j in [0..3]
+        $(".r#{i}.c#{j}").css("background-color", getColor(board[i][j]))
         unless board[i][j] is 0
           $(".r#{i}.c#{j}").html('<p>' + board[i][j] + '</p>')
         else
           $(".r#{i}.c#{j}").html('')
+
+  getColor = (rgb) ->
+    switch rgb
+      when 0 then '#FFFFFF'
+      when 2 then 'rgb(250,223,14)'
+      when 4 then 'rgb(248,154,67)'
+      when 8 then '#FA5454'
+      when 16 then '#FA54A7'
+      when 32 then '#FA54FA'
+      when 64 then '#A754FA'
+      when 128 then '#5454FA'
+      when 256 then '#54A7FA'
+      when 1024 then '#00FFFF'
+      when 2048 then '#00FF80'
+      when 4096 then '#00FF00'
+      else '#80FF00'
 
   move = (board, direction) ->
     switch direction
@@ -156,6 +170,15 @@ $ ->
 
     generateTile(board)
     showBoard(board)
+
+  checkWin = (board) ->
+    for row in board
+      for cell in row
+        if cell >= 2048
+          return true
+        else
+          false
+  checkWin(@board)
 
   $('body').keydown (e) =>
     key = e.which
@@ -191,7 +214,6 @@ $ ->
 
 
 
-
 # animate cells
 
   # $( "#go" ).click(function() {
@@ -205,10 +227,7 @@ $ ->
   #   });
   # });
 
-  # checkWin = (board) ->
-  #   for row in board
-  #     for cell in row
-  #       if cell >=2048
+
 
 
 
