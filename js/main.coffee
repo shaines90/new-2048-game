@@ -207,7 +207,7 @@ $ ->
       if gameLost(@board)
         alert "Game Over!"
       else if gameWon(@board)
-        console.log "Game Won!"
+        alert "Game Won!"
 
   @board = buildBoard()
   generateTile(@board)
