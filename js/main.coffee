@@ -120,10 +120,12 @@ $ ->
     value
 
   showBoard = (board) ->
-
-    $(".r#{0}.c#{0} > .board").html("<p>(board{row}{column})</p>")
-  showBoard(@board)
-  ppArray showBoard
+    for i in [0..3]
+      for j in [0..3]
+        unless board[i][j] is 0
+          $(".r#{i}.c#{j}").html('<p>' + board[i][j] + '</p>')
+        else
+          $(".r#{i}.c#{j}").html('')
 
   move = (board, direction) ->
     switch direction
@@ -153,6 +155,7 @@ $ ->
           setColumn(row, i, board)
 
     generateTile(board)
+    showBoard(board)
 
   $('body').keydown (e) =>
     key = e.which
@@ -181,6 +184,7 @@ $ ->
 
   generateTile(@board)
   generateTile(@board)
+  showBoard(@board)
   ppArray(@board)
 
 

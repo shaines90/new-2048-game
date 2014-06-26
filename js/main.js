@@ -136,10 +136,24 @@
       return value;
     };
     showBoard = function(board) {
-      return $(".r" + 0 + ".c" + 0 + " > .board").html("<p>(board{row}{column})</p>");
+      var i, j, _i, _results;
+      _results = [];
+      for (i = _i = 0; _i <= 3; i = ++_i) {
+        _results.push((function() {
+          var _j, _results1;
+          _results1 = [];
+          for (j = _j = 0; _j <= 3; j = ++_j) {
+            if (board[i][j] !== 0) {
+              _results1.push($(".r" + i + ".c" + j).html('<p>' + board[i][j] + '</p>'));
+            } else {
+              _results1.push($(".r" + i + ".c" + j).html(''));
+            }
+          }
+          return _results1;
+        })());
+      }
+      return _results;
     };
-    showBoard(this.board);
-    ppArray(showBoard);
     move = function(board, direction) {
       var i, row, _i, _j, _k, _l;
       switch (direction) {
@@ -175,7 +189,8 @@
             setColumn(row, i, board);
           }
       }
-      return generateTile(board);
+      generateTile(board);
+      return showBoard(board);
     };
     $('body').keydown((function(_this) {
       return function(e) {
@@ -207,6 +222,7 @@
     })(this));
     generateTile(this.board);
     generateTile(this.board);
+    showBoard(this.board);
     return ppArray(this.board);
   });
 
