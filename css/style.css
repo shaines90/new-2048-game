@@ -1,12 +1,14 @@
 body {
   background: rgb(3,3,3);
   text-align: center;
-  font-family: 'arial';
+/*  font-family: "Clear Sans";*/
+  font-family: 'Arial', sans-serif;
 }
 
 h1 {
   font-size: 50px;
-  font-family: 'arial';
+/*  font-family: "Clear Sans";*/
+  font-family: 'Arial';
   padding-top: 10px;
   color: rgb(225,225,225);
   text-decoration: bold;
@@ -53,6 +55,25 @@ p {
   border: 2px solid rgba(0,0,0,0.1);
 }
 
+
 #resetButton {
   margin-bottom: 30px;
+}
+
+.animateCell {
+  background-color: red;
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  margin: 3px;
+  border: 2px solid rgba(0,0,0,1);
+  position: absolute;
+}*/
+
+p {
+  font-family: 'Arial';
+  font-size: 28px;
+/*  padding-top: 2px;*/
+  color: rgb(50,50,50);
+/*  font-family: 'Inconsolata';*/
 }

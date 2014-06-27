@@ -353,7 +353,7 @@
           if (gameLost(_this.board)) {
             return alert("Game Over!");
           } else if (gameWon(_this.board)) {
-            return console.log("Game Won!");
+            return alert("Game Won!");
           }
         }
       };
