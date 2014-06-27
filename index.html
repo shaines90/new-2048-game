@@ -6,10 +6,19 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
-  <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.2/jquery.mobile.min.js"></script>
+  <script src="js/jquery.touchSwipe.min.js"></script>
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
 </head>
 <body>
   <h1>2048</h1>
+
+  <div class="score">
+    <h2>Score: 0</h2>
+    <button id="resetButton">Reset</button>
+  </div>
+
   <div class="board">
     <div class="cell r0 c0"></div>
     <div class="cell r0 c1"></div>
@@ -28,24 +37,6 @@
     <div class="cell r3 c2"></div>
     <div class="cell r3 c3"></div>
   </div>
-<!--
-  <div class="animation">
-    <div class="animateCell">-</div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-    <div class="animateCell"></div>
-  </div> -->
+
 </body>
 </html>

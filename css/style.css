@@ -1,19 +1,12 @@
-@font-face {
-  font-family: "Clear Sans";
-  src: url("fonts/ClearSans-Regular.ttf");
-}
-
 body {
   background: rgb(3,3,3);
   text-align: center;
-/*  font-family: "Clear Sans";*/
-  font-family: 'Inconsolata';
+  font-family: 'arial';
 }
 
 h1 {
   font-size: 50px;
-/*  font-family: "Clear Sans";*/
-  font-family: "avenir";
+  font-family: 'arial';
   padding-top: 10px;
   color: rgb(225,225,225);
   text-decoration: bold;
@@ -23,6 +16,21 @@ h1 {
     -1px 1px 0 #000,
     1px 1px 0 #000;
   letter-spacing: 10px;
+  margin-bottom: 0px;
+  margin-top: 20px;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: 'arial';
+  color: rgb(175,175,175);
+  margin-top: 10px;
+}
+
+p {
+  font-family: 'arial';
+  font-size: 28px;
+  color: rgb(50,50,50);
 }
 
 .board {
@@ -44,25 +52,7 @@ h1 {
   margin: 3px;
   border: 2px solid rgba(0,0,0,0.1);
 }
-/*
-.animation {
-  position: relative;
-}
 
-.animateCell {
-  background-color: red;
-  width: 90px;
-  height: 90px;
-  border-radius: 10px;
-  margin: 3px;
-  border: 2px solid rgba(0,0,0,1);
-  position: absolute;
-}*/
-
-p {
-  font-family: 'avenir';
-  font-size: 28px;
-/*  padding-top: 2px;*/
-  color: rgb(50,50,50);
-/*  font-family: 'Inconsolata';*/
+#resetButton {
+  margin-bottom: 30px;
 }

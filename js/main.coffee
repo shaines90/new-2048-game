@@ -1,3 +1,5 @@
+score = 0
+
 $ ->
 
   ppArray = (array) ->
@@ -97,6 +99,7 @@ $ ->
               break
             else if value[i] == value[j]
               value[i] = value[i]*2
+              addScore(value[i])
               value[j] = 0
               break
             else
@@ -109,6 +112,7 @@ $ ->
               break
             else if value[i] == value[j]
               value[i] = value[i]*2
+              addScore(value[i])
               value[j] = 0
               break
             else
@@ -152,6 +156,21 @@ $ ->
       when 4096 then '#00FF00'
       else '#80FF00'
 
+  setScoreZero = ->
+    score = 0
+    $('.score > h2').html("Score: 0")
+
+  addScore = (x) ->
+    score = score + x
+    $('.score > h2').html("Score: #{score}")
+
+  $('#resetButton').click =>
+    setScoreZero(@board)
+    @board = buildBoard()
+    generateTile(@board)
+    generateTile(@board)
+    showBoard(@board)
+
   move = (board, direction) ->
 
     newBoard = buildBoard()
@@ -183,12 +202,29 @@ $ ->
           setColumn(row, i, newBoard)
     newBoard
 
+  $("body").swipe
+    swipe: (event, direction, distance, duration, fingerCount, fingerData) =>
+      newBoard = move(@board, direction)
+
+      if moveIsValid(newBoard, @board)
+        @board = newBoard
+        generateTile(@board)
+        showBoard(@board)
+        console.log gameLost(@board)
+        if gameLost(@board)
+          alert "Game Over!"
+        else if gameWon(@board)
+          console.log "Game Won!"
+        return
+
   $('body').keydown (e) =>
     key = e.which
     keys = [37..40]
 
     if $.inArray(key, keys) > -1
       e.preventDefault()
+    else
+      return
 
     direction = switch key
       when 37 then 'left'
@@ -213,23 +249,6 @@ $ ->
   generateTile(@board)
   generateTile(@board)
   showBoard(@board)
-
-
-
-
-
-# animate cells
-
-  # $( "#go" ).click(function() {
-  #   $( ".animateCell:first" ).animate({
-  #     left: 100
-  #   }, {
-  #     duration: 1000,
-  #     step: function( now, fx ){
-  #       $( ".animateCell:gt(0)" ).css( direction, now );
-  #     }
-  #   });
-  # });
 
 
 
